@@ -13,7 +13,7 @@ mirror_app = Typer()
 
 # ========== 指令区 ==========
 
-@mirror_app.command()
+@mirror_app.command(help='替换系统 apt 镜像源')
 def apt() -> None:
     apt_mirror = AptMirror()
     apt_mirror.execute()
