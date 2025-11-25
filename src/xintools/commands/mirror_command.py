@@ -8,8 +8,8 @@ from typing import Any
 
 from typer import Typer
 
-from src.core.config import AptMirrorConfig, DockerMirrorConfig, PipMirrorConfig
-from src.core.logger import logger
+from xintools.core.config import AptMirrorConfig, DockerMirrorConfig, PipMirrorConfig
+from xintools.core.logger import logger
 
 mirror_app = Typer()
 
