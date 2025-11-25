@@ -1,7 +1,7 @@
 from typer import Typer
 
-from src.commands.mirror_command import mirror_app
-from src.commands.repl_command import repl_app
+from app.commands.mirror_command import mirror_app
+from app.commands.repl_command import repl_app
 
 main_app = Typer()
 

@@ -11,7 +11,7 @@ repl_app = Typer()
 def repl() -> None:
     """进入 REPL 模式"""
 
-    from src.app import main_app
+    from app.application import main_app
 
     try:
         import readline  # 支持方向键和历史记录（可选）

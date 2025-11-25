@@ -2,7 +2,7 @@ from datetime import datetime
 
 from loguru import logger as _logger
 
-from src.core.constants import BASE_DIR
+from app.core.constants import BASE_DIR
 
 
 def _setup_logger():
