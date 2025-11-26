@@ -9,7 +9,7 @@ BASE_DIR=$(dirname "$(dirname "$REAL_PATH")")
 cd "$BASE_DIR"
 
 # 检查虚拟环境是否存在（默认使用 venv）
-VENV_DIR="${BASE_DIR}/.linux_venv"
+VENV_DIR="${BASE_DIR}/.venv"
 
 if [ ! -d "$VENV_DIR" ]; then
     # 检查 pyenv 是否存在
