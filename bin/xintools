@@ -43,4 +43,4 @@ fi
 
 # 激活虚拟环境
 source "$VENV_DIR/bin/activate"
-exec python "$BASE_DIR/main.py" "$@"
+exec python "$BASE_DIR/run.py" "$@"
