@@ -24,9 +24,6 @@ bash scripts/setup_pyenv.sh
 ### 2.3 执行
 
 ```bash
-# 安装
-bash scripts/setup.sh
-
 # 运行指令
 bash bin/xintools --help
 
