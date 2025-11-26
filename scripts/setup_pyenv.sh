@@ -141,6 +141,8 @@ configure_shell() {
     grep -qF 'export PYENV_ROOT="$HOME/.pyenv"' "$config_file" || echo 'export PYENV_ROOT="$HOME/.pyenv"' >> "$config_file"
     grep -qF 'export PATH="$PYENV_ROOT/bin:$PATH"' "$config_file" || echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> "$config_file"
     grep -qF 'eval "$(pyenv init -)"' "$config_file" || echo 'eval "$(pyenv init -)"' >> "$config_file"
+    grep -qF 'export PYTHON_BUILD_MIRROR_URL=https://mirrors.tuna.tsinghua.edu.cn/python/' "$config_file" || echo 'export PYTHON_BUILD_MIRROR_URL=https://mirrors.tuna.tsinghua.edu.cn/python/' >> "$config_file"
+    grep -qF 'export PYTHON_BUILD_MIRROR_URL_SKIP_CHECKSUM=1' "$config_file" || echo 'export PYTHON_BUILD_MIRROR_URL_SKIP_CHECKSUM=1' >> "$config_file"
 
     echo "Shell 配置已更新。请运行 'source $config_file' 或重新打开终端以使更改生效。"
 }
