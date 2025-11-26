@@ -49,10 +49,10 @@ class AptMirror:
     SOURCES_PATH = "/etc/apt/sources.list"
     BACKUP_PATH = "/etc/apt/sources.list.bak"
 
-    def __init__(self):
+    def __init__(self, mirror_url: str | None = None):
         self._source_file_path = Path(self.SOURCES_PATH)
         self._backup_file_path = Path(self.BACKUP_PATH)
-        self._mirror_url = AptMirrorConfig.MIRROR_URL
+        self.mirror_url = mirror_url or AptMirrorConfig.MIRROR_URL
 
     def execute(self) -> None:
         """执行函数"""
@@ -100,16 +100,16 @@ class AptMirror:
 
         # 构建新的 sources.list 内容
         _content = f"""
-            deb {self._mirror_url} {version_codename} main contrib non-free non-free-firmware
-            deb {self._mirror_url} {version_codename}-updates main contrib non-free non-free-firmware
-            deb {self._mirror_url} {version_codename}-backports main contrib non-free non-free-firmware
+            deb {self.mirror_url} {version_codename} main contrib non-free non-free-firmware
+            deb {self.mirror_url} {version_codename}-updates main contrib non-free non-free-firmware
+            deb {self.mirror_url} {version_codename}-backports main contrib non-free non-free-firmware
             deb http://security.debian.org/debian-security {version_codename}-security main contrib non-free non-free-firmware
         """
         content = textwrap.dedent(_content).strip()
 
         try:
             Path(self._source_file_path).write_text(content)
-            logger.info(f"已成功将 APT 源替换为：{self._mirror_url}")
+            logger.info(f"已成功将 APT 源替换为：{self.mirror_url}")
 
         except PermissionError:
             logger.error("写入 sources.list 失败，请以 root 权限运行此脚本")
@@ -119,8 +119,8 @@ class PipMirror:
     """配置 pip 镜像源（优先清华源）"""
 
     def __init__(self, index_url: str | None = None, trusted_host: str | None = None) -> None:
-        self._index_url = index_url or PipMirrorConfig.MIRROR_URL
-        self._trusted_host = trusted_host or PipMirrorConfig.TRUSTED_HOST
+        self.index_url = index_url or PipMirrorConfig.MIRROR_URL
+        self.trusted_host = trusted_host or PipMirrorConfig.TRUSTED_HOST
 
     def execute(self) -> None:
         """执行 pip 镜像源配置"""
@@ -139,8 +139,8 @@ class PipMirror:
 
         _str = f"""
             [global]
-            index-url = {self._index_url}
-            trusted-host = {self._trusted_host}
+            index-url = {self.index_url}
+            trusted-host = {self.trusted_host}
         """
 
         return textwrap.dedent(_str).strip()
@@ -159,14 +159,14 @@ class DockerMirror:
     """配置 Docker 镜像加速器（优先清华源）"""
 
     def __init__(self, mirrors: list[str] | None = None) -> None:
-        self._mirrors = mirrors or DockerMirrorConfig.MIRROR_URLS
+        self.mirrors = mirrors or DockerMirrorConfig.MIRROR_URLS
 
     def execute(self) -> None:
         """执行 Docker 镜像源配置"""
 
         config_path = self._get_config_path()
         config = self._read_existing_config(config_path)
-        config["registry-mirrors"] = self._mirrors
+        config["registry-mirrors"] = self.mirrors
 
         self._write_config(config_path, config)
         self._reload_docker_daemon()
